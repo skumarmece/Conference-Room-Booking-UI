@@ -27,6 +27,22 @@
         </label>
     </div>
 
+    <div class="panel-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Room Name</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let room of rooms | async">
+              <td>{{room.roomName}}</td>
+              <td>{{room.type}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     <button type="submit" class="btn btn-success">Submit</button>
   </form>
 </div>
