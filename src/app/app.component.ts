@@ -16,6 +16,9 @@ export class AppComponent {
     this.app.authenticate(undefined, undefined);
   }
 
+  isAuthenticated(){
+    return this.app.authenticated;
+  }
 
   logout() {
     this.http.post('logout', {})

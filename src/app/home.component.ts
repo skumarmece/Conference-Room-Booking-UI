@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent {
 
-  title = 'Demo';
+  title = 'My Bookings';
   greeting = {};
 
   constructor(private app: AppService, private http: HttpClient) {
