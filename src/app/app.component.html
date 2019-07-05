@@ -1,15 +1,12 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <!-- Links -->
   <ul class="navbar-nav">
-    <li class="nav-item">
-        <a routerLink="employees" class="nav-link" routerLinkActive="active">Employee List</a>
-    </li>
-    <li class="nav-item">
-        <a routerLink="add" class="nav-link" routerLinkActive="active">Add Employee</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="addConference" class="nav-link" routerLinkActive="active">Create Conference</a>
-  </li>
+    <li><a routerLinkActive="active" routerLink="/home">Home</a></li>
+    <li class="nav-item"><a routerLink="/employees" class="nav-link" routerLinkActive="active">Employee List</a></li>
+    <li class="nav-item"><a routerLink="/add" class="nav-link" routerLinkActive="active">Add Employee</a></li>
+    <li class="nav-item"><a routerLink="/addConference" class="nav-link" routerLinkActive="active">Create Conference</a></li>
+    <li class="nav-item"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+    <li class="nav-item"><a (click)="logout()">Logout</a></li>
   </ul>
 </nav>
 <div class="container">
@@ -18,7 +15,7 @@
   <hr>  
   <div class="card">
     <div class="card-body">
-  <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
     </div>
   </div>
 </div>
