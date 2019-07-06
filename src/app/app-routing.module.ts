@@ -4,8 +4,8 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { CreateConferenceComponent } from './create-conference/create-conference.component';
-import { HomeComponent } from './home.component';
-import { LoginComponent } from './login.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

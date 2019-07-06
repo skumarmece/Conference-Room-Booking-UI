@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class EmployeeService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/v1/employees';
+  private baseUrl = '/v1/users';
 
   constructor(private http: HttpClient) { }
 
@@ -28,18 +28,18 @@ export class EmployeeService {
   }
 
   getEmployeesList(): Observable<any> {
-    let list = [{
-      "id": 1,
-      "firstName" : "Devaraj",
-      "lastName" : "Prathan",
-      "emailId" : "deva@aricent.com",
-      "active" : false
-  }];
-  let subject = new Subject<any>();
-  setTimeout(function(){
-    subject.next(list);
-  },1000)
-  return subject;
-    //return this.http.get(`${this.baseUrl}`);
+  //   let list = [{
+  //     "id": 1,
+  //     "firstName" : "Devaraj",
+  //     "lastName" : "Prathan",
+  //     "emailId" : "deva@aricent.com",
+  //     "active" : false
+  // }];
+  // let subject = new Subject<any>();
+  // setTimeout(function(){
+  //   subject.next(list);
+  // },1000)
+  // return subject;
+  return this.http.get(`${this.baseUrl}`);
   }
 }

@@ -10,8 +10,8 @@ import { HttpClientModule, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTER
 import { CreateConferenceComponent } from './create-conference/create-conference.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home.component';
-import { LoginComponent } from './login.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { AppService } from './app.service';
 
 
