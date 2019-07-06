@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'details/:id', component: EmployeeDetailsComponent },
   { path: 'addConference', component: CreateConferenceComponent },
   { path: 'home', component: HomeComponent},
-  { path: 'login', component: LoginComponent}  
+  { path: 'log-in', component: LoginComponent}  
 ];
 
 @NgModule({

@@ -25,7 +25,7 @@ export class AppComponent {
     .pipe(
       finalize(() => {
         this.app.authenticated = false;
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/log-in');
       })
     )   
     .subscribe();
