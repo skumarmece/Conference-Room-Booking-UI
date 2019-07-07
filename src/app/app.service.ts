@@ -1,29 +1,63 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AppService {
 
-  authenticated = false;
+    JSESSION_ID: string;
+    getJSessionId() {
+        return this.JSESSION_ID;
+    }
 
-  constructor(private http: HttpClient) {
-  }
 
-  authenticate(credentials, callback) {
+    userName: string ;
+    authenticated = false;
 
-        const headers = new HttpHeaders(credentials ? {
-            authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-        } : {});
+    getCurrentUser(){
+        return this.userName;
+    }
+    constructor(private http: HttpClient) {
+    }
 
-        this.http.get('login', {headers: headers}).subscribe(response => {
-            if (response['name']) {
-                this.authenticated = true;
-            } else {
-                this.authenticated = false;
+    authenticate(credentials, callback) {
+
+        this.userName = credentials.userName;
+        
+        const body = new HttpParams()
+            .set('username', credentials.username)
+            .set('password', credentials.password);
+
+
+        this.http.post('login',
+            body.toString(),
+            {
+                withCredentials: true,
+                headers: new HttpHeaders()
+                    .set('Content-Type', 'application/x-www-form-urlencoded')
+                    .set('Access-Control-Allow-Origin', 'http://localhost:4200')
+                //  .set('Referer','http://localhost:4200/home')
             }
-            return callback && callback();
-        });
+        ).subscribe(
+            response => {
+                console.log(response);
+            }
+        );
+        
+        this.authenticated = true;
+        return callback && callback();
 
+        /*
+                this.http.post('login', credentials ? {username: credentials.username,password: credentials.password}:{}).subscribe(response => {
+                    console.log(response);
+                    this.JSESSION_ID = "XXXXXXXXXXXXXX";
+                    if (response['name']) {
+                        this.authenticated = true;
+                    } else {
+                        this.authenticated = false;
+                    }
+                    return callback && callback();
+                });
+        */
     }
 
 }

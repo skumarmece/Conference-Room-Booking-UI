@@ -3,51 +3,45 @@
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Purpose</label>
-      <input type="text" class="form-control" id="purpose" required [(ngModel)]="conference.purpose" name="purpose">
+      <input type="text" class="form-control" id="purpose" required [(ngModel)]="purpose" name="purpose">
     </div>
 
     <div class="form-group">
       <label for="name">Description</label>
-      <input type="text" class="form-control" id="description" required [(ngModel)]="conference.description" name="description">
+      <input type="text" class="form-control" id="description" required [(ngModel)]="description" name="description">
     </div>
 
     <div class="form-group">
-        <label>
-            From Time:
-            <input [owlDateTimeTrigger]="df" [owlDateTime]="df">
-            <owl-date-time #df></owl-date-time>
-        </label>
+      <label for="name" >From Time:</label><br>
+        <input class="form-control" [owlDateTimeTrigger]="df" [(ngModel)]="dateFrom" [owlDateTime]="df" name="dateFrom">
+        <owl-date-time #df></owl-date-time>
     </div>
 
     <div class="form-group">
-        <label>
-            To Time:
-            <input [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
-            <owl-date-time #dt></owl-date-time>
-        </label>
+      <label for="name">To Time:</label><br>
+        <input class="form-control" [owlDateTimeTrigger]="dt" [(ngModel)]="dateTo" [owlDateTime]="dt" name="dateTo">
+        <owl-date-time #dt></owl-date-time>
     </div>
 
     <div class="panel-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Room Name</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let room of rooms | async">
-              <td>{{room.roomName}}</td>
-              <td>{{room.type}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
-</div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Room Name</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="rooms">
+          <tr *ngFor="let item of rooms">
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.category.name}}</td>
+            <button type="button" (click)="onRoomSelect(item)" class="glyphicon glyphicon-check">Select</button>
+          </tr>
+        <tbody>
+      </table>
+    </div>
 
-<div [hidden]="!submitted">
-  <h4>You submitted successfully!</h4>
-  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+    <button type="submit" class="btn btn-success" style="padding-top:15px;" >Submit</button>
+  </form>
 </div>

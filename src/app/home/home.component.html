@@ -1,8 +1,30 @@
-<h1>Greeting</h1>
-<div [hidden]="!authenticated()">
-	<p>The ID is {{greeting.id}}</p>
-	<p>The content is {{greeting.content}}</p>
-</div>
-<div [hidden]="authenticated()">
-	<p>Login to see your greeting</p>
-</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>My Bookings</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Info</th>
+            <th>Room</th>
+            <th>At</th>
+            <th>Organiser</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="myBookings">
+          <tr *ngFor="let conference of myBookings">
+            <td>{{conference.name}}</td>
+            <td>{{conference.description}}</td>
+            <td>{{conference.room.name}}</td>
+            <td>{{conference.startTime | date:'MM/dd/yyyy @ h:mma'}}</td>
+            <td>{{conference.user.firstName}}</td>
+            <td><button (click)="deleteConference(conference.id)" class="btn btn-danger">Delete</button>
+                <button (click)="conferenceDetails(conference.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

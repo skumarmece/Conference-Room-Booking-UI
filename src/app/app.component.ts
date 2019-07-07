@@ -13,21 +13,24 @@ export class AppComponent {
   title = 'Conference-Room-Booking';
 
   constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    this.app.authenticate(undefined, undefined);
+    //this.app.authenticate(undefined, undefined);
+    if (!app.authenticated) {
+      this.router.navigateByUrl('/log-in');
+    }
   }
 
-  isAuthenticated(){
+  isAuthenticated() {
     return this.app.authenticated;
   }
 
   logout() {
     this.http.post('logout', {})
-    .pipe(
-      finalize(() => {
-        this.app.authenticated = false;
+      .pipe(
+        finalize(() => {
+          this.app.authenticated = false;
           this.router.navigateByUrl('/log-in');
-      })
-    )   
-    .subscribe();
+        })
+      )
+      .subscribe();
   }
 }

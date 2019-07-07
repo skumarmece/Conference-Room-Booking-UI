@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './home.component.html'
@@ -8,12 +9,16 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent {
 
   title = 'My Bookings';
-  greeting = {};
+  myBookings:any;
 
-  constructor(private app: AppService, private http: HttpClient) {
-    http.get('/v1/rooms').subscribe(data => {
+  constructor(private app: AppService, private http: HttpClient,private router: Router) {
+
+    if(!app.authenticated){
+      router.navigate(['/log-in']);
+    }
+    http.get('/v1/conference').subscribe(data => {
       console.log(data);
-      this.greeting["content"] = JSON.stringify(data);
+      this.myBookings = data;
     });
   }
 
