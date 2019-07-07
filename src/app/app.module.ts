@@ -15,6 +15,9 @@ import { AppService } from './app.service';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatStepperModule, MatInputModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { AddRoomComponent } from './add-room/add-room.component';
+import { RoomListComponent } from './room-list/room-list.component';
+import { RoomBookingsComponent } from './room-bookings/room-bookings.component';
 
 @Injectable()
 export class SpringbootInterceptor implements HttpInterceptor {
@@ -38,7 +41,10 @@ export class SpringbootInterceptor implements HttpInterceptor {
     EmployeeDetailsComponent,
     CreateConferenceComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    AddRoomComponent,
+    RoomListComponent,
+    RoomBookingsComponent
   ],
   imports: [
     BrowserModule,

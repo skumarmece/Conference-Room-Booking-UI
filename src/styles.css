@@ -1,3 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+
+.bg-primary {
+    background-color: #007BA5!important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}

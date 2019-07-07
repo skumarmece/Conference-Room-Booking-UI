@@ -10,7 +10,7 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Conference-Room-Booking';
+  title = 'Conference Room Booking';
 
   constructor(private app: AppService, private http: HttpClient, private router: Router) {
     //this.app.authenticate(undefined, undefined);

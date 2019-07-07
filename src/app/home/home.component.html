@@ -21,7 +21,7 @@
             <td>{{conference.startTime | date:'MM/dd/yyyy @ h:mma'}}</td>
             <td>{{conference.user.firstName}}</td>
             <td><button (click)="deleteConference(conference.id)" class="btn btn-danger">Delete</button>
-                <button (click)="conferenceDetails(conference.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+                <button (click)="conferenceDetails(conference.id)" class="btn btn-info" style="margin-left: 10px">Edit</button>
             </td>
           </tr>
         </tbody>

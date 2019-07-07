@@ -1,4 +1,7 @@
 <h3>Create Conference</h3>
+<div *ngIf="errors">
+    <h5 style="color: red">Conflict with other meetings. You can choose another room or different timings.</h5>
+</div>
 <div [hidden]="submitted" style="width: 400px;">
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -23,6 +26,10 @@
         <owl-date-time #dt></owl-date-time>
     </div>
 
+    <div *ngIf="timeErrors">
+        <h6 style="color: red">From time should be less than to time.</h6>
+    </div>
+
     <div class="panel-body">
       <table class="table table-striped">
         <thead>
@@ -33,10 +40,12 @@
         </thead>
         <tbody *ngIf="rooms">
           <tr *ngFor="let item of rooms">
-            <th scope="row">{{item.id}}</th>
+            <!-- <th scope="row">{{item.id}}</th> -->
             <td>{{item.name}}</td>
             <td>{{item.category.name}}</td>
-            <button type="button" (click)="onRoomSelect(item)" class="glyphicon glyphicon-check">Select</button>
+            <td>
+              <button type="button" (click)="onRoomSelect(item)" class="glyphicon glyphicon-check">Select</button>
+            </td>
           </tr>
         <tbody>
       </table>

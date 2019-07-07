@@ -3,7 +3,7 @@ import { Conference } from "../conference"
 import { Subject } from 'rxjs';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-create-conference',
@@ -20,9 +20,12 @@ export class CreateConferenceComponent implements OnInit {
   purpose: String;
   description: String;
   selectedRoom: Number;
+  errors:boolean;
+  timeErrors: boolean;
+  id: number;
 
   constructor(private app: AppService, private http: HttpClient, private fb: FormBuilder,
-    private router: Router) {
+    private router: Router,private route: ActivatedRoute) {
 
     this.dateFrom = new Date();
     var dt = new Date();
@@ -33,7 +36,7 @@ export class CreateConferenceComponent implements OnInit {
     if (!app.authenticated) {
       router.navigate(['/log-in']);
     }
-    http.get('/v1/rooms').subscribe(data => {
+    http.get('/api/v1/rooms').subscribe(data => {
       console.log(data);
       this.rooms = data;
     });
@@ -41,7 +44,21 @@ export class CreateConferenceComponent implements OnInit {
 
 
   ngOnInit() {
+
     this.createForm();
+    this.id = this.route.snapshot.params['id'];
+    if(this.id){
+      this.http.get('/api/v1/conference/'+this.id)
+      .subscribe(data => {
+        this.purpose = data["name"];
+        this.description  = data["description"];
+        this.dateFrom = new Date(data["startTime"]);
+        this.dateTo = new Date(data["endTime"]);
+        this.selectedRoom = data["room"];
+      });
+    }
+    
+
   }
   createForm() {
     this.createConferenceForm = this.fb.group({
@@ -64,24 +81,53 @@ export class CreateConferenceComponent implements OnInit {
   }
 
   onSubmit() {
+    this.timeErrors = false;
     let obj = {
-      "user": {
-        "firstName": this.app.getCurrentUser(),
-      },
+      "user": this.app.getCurrentUserInfo(),
       "description": this.description,
       "name": this.purpose,
       "startTime": this.dateFrom,
       "endTime": this.dateTo,
       "room": this.selectedRoom
     };
-    console.log(this.app.getCurrentUser());
+    
+    if(this.dateFrom.getUTCMilliseconds() > this.dateFrom.getUTCMilliseconds()){
+      this.timeErrors = true;
+    }
     console.log(obj);
+    if(!this.id){
+      this.http.post('/api/v1/conference', obj).subscribe(
+        data => {
+        console.log(data);
+        this.router.navigate(['/home']);
+      },
+      err  => {
+        console.log(err);
+       this.setError(err);
+      } );
+        
+    }else{
 
-    this.http.post('/v1/conference', obj).subscribe(data => {
-      console.log(data);
-      this.rooms = data;
-    });
+      obj["id"] = this.id;
+      this.http.put('/api/v1/conference/'+this.id, obj).subscribe(
+        data => {
+        console.log(data);
+        this.router.navigate(['/home']);
+      },
+      err  => {
+        console.log(err);
+       this.setError(err);
+      } );
+    }
 
+  }
+  setError(err:any){
+    if(err.status == 409){
+      this.errors = true;
+      setTimeout(function(){
+        this.errors = false;
+      }.bind(this),5000);
+    }
   }
 
   onRoomSelect(item: any) {

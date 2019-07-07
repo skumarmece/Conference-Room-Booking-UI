@@ -4,6 +4,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Injectable()
 export class AppService {
 
+
+  updateUser(username: string) {
+    this.http.get('/api/v1/users?name=' + username).subscribe(data => {
+        console.log(data);
+        this.userInfo = data[0];
+      });
+  }
+
     JSESSION_ID: string;
     getJSessionId() {
         return this.JSESSION_ID;
@@ -11,10 +19,11 @@ export class AppService {
 
 
     userName: string ;
+    userInfo: any;
     authenticated = false;
 
-    getCurrentUser(){
-        return this.userName;
+    getCurrentUserInfo(){
+        return this.userInfo;
     }
     constructor(private http: HttpClient) {
     }
@@ -42,7 +51,7 @@ export class AppService {
                 console.log(response);
             }
         );
-        
+
         this.authenticated = true;
         return callback && callback();
 

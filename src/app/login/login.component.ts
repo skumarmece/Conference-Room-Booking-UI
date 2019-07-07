@@ -14,6 +14,8 @@ export class LoginComponent {
   }
 
   login() {
+    this.app.updateUser(this.credentials.username);
+
     this.app.authenticate(this.credentials, () => {
         this.router.navigateByUrl('/home');
     });

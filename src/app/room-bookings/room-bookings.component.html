@@ -1,0 +1,28 @@
+<div class="panel panel-primary">
+        <div class="panel-heading">
+          <h2>{{roomName}} Bookings</h2>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Info</th>
+                <th>Room</th>
+                <th>At</th>
+                <th>Organiser</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="conferences">
+              <tr *ngFor="let conference of conferences">
+                <td>{{conference.name}}</td>
+                <td>{{conference.description}}</td>
+                <td>{{conference.room.name}}</td>
+                <td>{{conference.startTime | date:'MM/dd/yyyy @ h:mma'}}</td>
+                <td>{{conference.user.firstName}}</td>
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
