@@ -72,9 +72,7 @@ export class CreateConferenceComponent implements OnInit {
       "name": this.purpose,
       "startTime": this.dateFrom,
       "endTime": this.dateTo,
-      "room": {
-        "id": this.selectedRoom,
-      }
+      "room": this.selectedRoom
     };
     console.log(this.app.getCurrentUser());
     console.log(obj);
