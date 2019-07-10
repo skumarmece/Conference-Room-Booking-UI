@@ -3,6 +3,7 @@ import { Employee } from '../employee';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -18,12 +19,16 @@ export class CreateEmployeeComponent implements OnInit {
   submitted = false;
 
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
-    this.roles = [{ "id": 18, "roleName": "ADMIN" },
-                  { "id": 19, "roleName": "USER" }]
+
+    this.http.get('/api/v1/roles').subscribe(data => {
+      console.log(data);
+      this.roles = data;
+    });
     this.initializeForm();
+
   }
 
   initializeForm() {
@@ -33,7 +38,7 @@ export class CreateEmployeeComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       password: ['', Validators.required],
-      roles: ['Admin']
+      roles: ['']
 
     });
   }
@@ -51,6 +56,7 @@ export class CreateEmployeeComponent implements OnInit {
     if (this.addForm.valid) {
       let data = this.addForm.value;
       console.log(data);
+      data.roles =   data.roles[0];
       this.employeeService.createEmployee(data).subscribe(() => {
         this.gotoList();
       });

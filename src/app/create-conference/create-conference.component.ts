@@ -108,7 +108,7 @@ export class CreateConferenceComponent implements OnInit {
         
     }else{
 
-      obj["id"] = this.id;
+      obj["id"] = parseInt(this.id +'');
       this.http.put('/api/v1/conference/'+this.id, obj).subscribe(
         data => {
         console.log(data);
